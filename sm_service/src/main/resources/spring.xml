@@ -33,6 +33,7 @@
     </bean>
 
     <!-- 声明式事物 -->
+    <!-- 事物管理器 -->
     <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
         <property name="dataSource" ref="dataSource" />
     </bean>
@@ -50,4 +51,8 @@
         <aop:pointcut id="txPointcut" expression="execution(* com.joker.sm.service.*.*(..))"/>
         <aop:advisor advice-ref="txAdvice" pointcut-ref="txPointcut" />
     </aop:config>
+
+    <!-- 全局扫描 -->
+    <context:component-scan base-package="com.joker.sm" />
+    <aop:aspectj-autoproxy />
 </beans>
