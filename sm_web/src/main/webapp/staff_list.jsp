@@ -1,16 +1,17 @@
 <%--
   Created by IntelliJ IDEA.
   User: 雨木科技
-  Date: 2019/11/5
-  Time: 15:45
+  Date: 2019/11/6
+  Time: 14:18
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>部门列表</title>
+    <title>员工列表</title>
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/reset.css"/>
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/common.css"/>
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/thems.css">
@@ -36,34 +37,32 @@
     <div class="right_m">
         <div class="hy_list">
             <div class="box_t">
-                <span class="name">部门列表</span>
+                <span class="name">员工列表</span>
             </div>
             <div class="space_hx">&nbsp;</div>
             <!--列表-->
             <table cellpadding="0" cellspacing="0" class="list_hy">
                 <tr>
-                    <th class="xz" scope="col">选择</th>
-<%--                    <th scope="col"><div>XX<a href="" class="up">&nbsp;</a><a href="" class="down">&nbsp;</a></div></th>--%>
-<%--                    <th class="zt" scope="col"><div>XX<a href="" class="up">&nbsp;</a><a href="" class="down">&nbsp;</a></div></th>--%>
-<%--                    <th scope="col">XXXX</th>--%>
-<%--                    <th scope="col">XXXX</th>--%>
-                    <th scope="col">名称</th>
-                    <th scope="col">地址</th>
+                    <th scope="col">姓名</th>
+                    <th scope="col">性别</th>
+                    <th scope="col">出生日期</th>
+                    <th scope="col">入职时间</th>
+                    <th scope="col">部门</th>
+                    <th scope="col">状态</th>
                     <th scope="col">操作</th>
                 </tr>
-                <c:forEach items="${LIST}" var="dep">
+                <c:forEach items="${LIST}" var="staff">
                 <tr>
-                    <td class="xz"><input name="dpId[]" type="checkbox" value="${dep.id}"></td>
-<%--                    <td>XXXX</td>--%>
-<%--                    <td class="zt">XXXX</td>--%>
-<%--                    <td>XXXX</td>--%>
-<%--                    <td>XXXXXXXX</td>--%>
-                    <td>${dep.name}</td>
-                    <td>${dep.address}</td>
+                    <td>${staff.name}</td>
+                    <td>${staff.sex}</td>
+                    <td><fmt:formatDate value="${staff.bornDate}" pattern="yyyy-MM-dd"/></td>
+                    <td><fmt:formatDate value="${staff.workTime}" pattern="yyyy-MM-dd"/></td>
+                    <td>${staff.department.name}</td>
+                    <td>${staff.status}</td>
                     <td>
-                        <a href="${pageContext.request.contextPath}/department/to_edit.do?id=${dep.id}" class="btn">编辑</a>
-                        <a href="${pageContext.request.contextPath}/department/delete.do?id=${dep.id}" class="btn">删除</a>
-                        <a href="${pageContext.request.contextPath}/department/detail.do" class="btn">查看</a>
+                        <a href="${pageContext.request.contextPath}/staff/to_edit.do?id=${staff.id}" class="btn">编辑</a>
+                        <a href="${pageContext.request.contextPath}/staff/delete.do?id=${staff.id}" class="btn">删除</a>
+                        <a href="${pageContext.request.contextPath}/staff/detail.do?id=${staff.id}" class="btn">查看</a>
                     </td>
                 </tr>
                 </c:forEach>
@@ -72,7 +71,7 @@
             <!--右边底部-->
             <div class="r_foot">
                 <div class="r_foot_m">
-                    <a href="${pageContext.request.contextPath}/department/to_add.do" class="btn">添加</a>
+                    <a href="${pageContext.request.contextPath}/staff/to_add.do" class="btn">添加</a>
                 </div>
             </div>
             <!--右边底部-->
