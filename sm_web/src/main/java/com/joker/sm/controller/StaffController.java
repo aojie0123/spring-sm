@@ -76,7 +76,7 @@ public class StaffController {
         request.getRequestDispatcher("../staff_edit.jsp").forward(request, response);
     }
 
-    public void edit(HttpServletRequest request, HttpServletResponse response) throws ParseException {
+    public void edit(HttpServletRequest request, HttpServletResponse response) throws ParseException, IOException {
         int id = Integer.parseInt(request.getParameter("id"));
         String name = request.getParameter("name");
         String sex = request.getParameter("sex");
@@ -87,6 +87,30 @@ public class StaffController {
         int did = Integer.parseInt(request.getParameter("did"));
 
         Staff staff = staffService.get(id);
+        staff.setName(name);
+        staff.setSex(sex);
+        staff.setAccount(account);
+        if (!password.equals("")) {
+            staff.setPassword(DigestUtils.md5DigestAsHex(password.getBytes()));
+        }
+        staff.setIdNumber(idNumber);
+        staff.setBornDate(bornDate);
+        staff.setDid(did);
+        staffService.update(staff);
+
+        response.sendRedirect(request.getContextPath() + "/staff/list.do");
     }
 
+    public void delete(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        int id = Integer.parseInt(request.getParameter("id"));
+        staffService.delete(id);
+        response.sendRedirect(request.getContextPath() + "/staff/list.do");
+    }
+
+    public void detail(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        int id = Integer.parseInt(request.getParameter("id"));
+        Staff staff = staffService.get(id);
+        request.setAttribute("staff", staff);
+        request.getRequestDispatcher("../staff_detail.jsp").forward(request, response);
+    }
 }

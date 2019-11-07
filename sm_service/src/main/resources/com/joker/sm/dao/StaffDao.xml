@@ -23,7 +23,7 @@
         DELETE FROM staff WHERE id = #{id}
     </delete>
     <update id="update" parameterType="Staff">
-        UPDATE staff SET account = #{account}, password = #{password}, status = #{status}, did = #{did}, sex = #{sex}, id_number = #{idNumber}, work_time = #{workTime}, leave_time = #{leaveTime}, born_date = #{bornDate}, info = #{info} WHERE id = #{id}
+        UPDATE staff SET account = #{account}, password = #{password}, name = #{name}, status = #{status}, did = #{did}, sex = #{sex}, id_number = #{idNumber}, work_time = #{workTime}, leave_time = #{leaveTime}, born_date = #{bornDate}, info = #{info} WHERE id = #{id}
     </update>
     <select id="select" parameterType="Integer" resultMap="resultMap">
         SELECT * FROM staff WHERE id = #{id}
